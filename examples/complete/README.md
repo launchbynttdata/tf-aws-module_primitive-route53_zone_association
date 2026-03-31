@@ -43,6 +43,22 @@ resource "aws_vpc" "secondary" {
   })
 }
 
+resource "aws_default_security_group" "primary" {
+  vpc_id = aws_vpc.primary.id
+
+  tags = merge(var.tags, {
+    Name = "${module.resource_names["vpc_primary"].standard}-default-sg"
+  })
+}
+
+resource "aws_default_security_group" "secondary" {
+  vpc_id = aws_vpc.secondary.id
+
+  tags = merge(var.tags, {
+    Name = "${module.resource_names["vpc_secondary"].standard}-default-sg"
+  })
+}
+
 resource "aws_route53_zone" "zone" {
   name = var.domain_name
 
