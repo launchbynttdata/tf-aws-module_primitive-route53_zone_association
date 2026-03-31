@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sL \"https://registry.terraform.io/providers/-/aws/5.100.0/docs/resources/route53_zone_association\")",
+      "Bash(curl -sL \"https://registry.terraform.io/v1/providers/hashicorp/aws/5.100.0\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\(''''docs'''', d.get\\(''''root'''', {}\\)\\), indent=2\\)\\)\")",
+      "Bash(curl:*)",
+      "WebFetch(domain:registry.terraform.io)",
+      "Bash(python3 -m json.tool)",
+      "Bash(go get:*)",
+      "Bash(go mod:*)",
+      "Bash(terraform init:*)",
+      "Bash(terraform validate:*)",
+      "Bash(terraform plan:*)"
+    ]
+  }
+}
