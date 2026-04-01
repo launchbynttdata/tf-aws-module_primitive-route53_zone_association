@@ -158,6 +158,18 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 	})
 }
 
+func assertConfiguredTimeouts(t *testing.T, ctx types.TestContext, expectedCreate, expectedDelete string) {
+	t.Helper()
+	opts := ctx.TerratestTerraformOptions()
+	assert.Equal(t, expectedCreate, terraform.Output(t, opts, "configured_timeout_create"), "configured create timeout should match test input")
+	assert.Equal(t, expectedDelete, terraform.Output(t, opts, "configured_timeout_delete"), "configured delete timeout should match test input")
+}
+
+func TestComposableCompleteWithTimeouts(t *testing.T, ctx types.TestContext) {
+	TestComposableComplete(t, ctx)
+	assertConfiguredTimeouts(t, ctx, "45m", "45m")
+}
+
 func TestComposableCompleteReadonly(t *testing.T, ctx types.TestContext) {
 	outputs := getOutputs(t, ctx)
 	assertOutputContract(t, outputs)

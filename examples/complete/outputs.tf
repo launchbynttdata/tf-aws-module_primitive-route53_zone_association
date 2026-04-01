@@ -49,3 +49,13 @@ output "expected_vpc_region" {
   description = "Expected VPC region from the provider/test fixture."
   value       = data.aws_region.current.name
 }
+
+output "configured_timeout_create" {
+  description = "Configured create timeout passed to the module in this example."
+  value       = try(var.timeouts.create, null)
+}
+
+output "configured_timeout_delete" {
+  description = "Configured delete timeout passed to the module in this example."
+  value       = try(var.timeouts.delete, null)
+}

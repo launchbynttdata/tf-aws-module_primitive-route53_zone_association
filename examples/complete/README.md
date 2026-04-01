@@ -138,6 +138,8 @@ module "route53_zone_association" {
 
 | Name | Description |
 |------|-------------|
+| <a name="output_configured_timeout_create"></a> [configured\_timeout\_create](#output\_configured\_timeout\_create) | Configured create timeout passed to the module in this example. |
+| <a name="output_configured_timeout_delete"></a> [configured\_timeout\_delete](#output\_configured\_timeout\_delete) | Configured delete timeout passed to the module in this example. |
 | <a name="output_expected_vpc_id"></a> [expected\_vpc\_id](#output\_expected\_vpc\_id) | Expected VPC ID from the test fixture. |
 | <a name="output_expected_vpc_region"></a> [expected\_vpc\_region](#output\_expected\_vpc\_region) | Expected VPC region from the provider/test fixture. |
 | <a name="output_expected_zone_id"></a> [expected\_zone\_id](#output\_expected\_zone\_id) | Expected zone ID from the test fixture. |
