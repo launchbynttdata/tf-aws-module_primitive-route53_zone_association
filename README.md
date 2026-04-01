@@ -123,4 +123,7 @@ No modules.
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The calculated unique identifier for the zone association. |
 | <a name="output_owning_account"></a> [owning\_account](#output\_owning\_account) | The account ID of the account that created the hosted zone. |
+| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | The VPC ID associated with the private hosted zone. |
+| <a name="output_vpc_region"></a> [vpc\_region](#output\_vpc\_region) | The region of the VPC associated with the private hosted zone. |
+| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | The private hosted zone ID associated with the VPC. |
 <!-- END_TF_DOCS -->

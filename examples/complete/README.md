@@ -92,7 +92,6 @@ module "route53_zone_association" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.9 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.100 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.6 |
 
 ## Providers
 
@@ -139,8 +138,12 @@ module "route53_zone_association" {
 
 | Name | Description |
 |------|-------------|
+| <a name="output_expected_vpc_id"></a> [expected\_vpc\_id](#output\_expected\_vpc\_id) | Expected VPC ID from the test fixture. |
+| <a name="output_expected_vpc_region"></a> [expected\_vpc\_region](#output\_expected\_vpc\_region) | Expected VPC region from the provider/test fixture. |
+| <a name="output_expected_zone_id"></a> [expected\_zone\_id](#output\_expected\_zone\_id) | Expected zone ID from the test fixture. |
 | <a name="output_id"></a> [id](#output\_id) | The calculated unique identifier for the zone association. |
 | <a name="output_owning_account"></a> [owning\_account](#output\_owning\_account) | The account ID of the account that created the hosted zone. |
-| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | The VPC ID of the secondary VPC associated with the zone. |
-| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | The private hosted zone ID. |
+| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | The VPC ID returned by the module. |
+| <a name="output_vpc_region"></a> [vpc\_region](#output\_vpc\_region) | The VPC region returned by the module. |
+| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | The private hosted zone ID returned by the module. |
 <!-- END_TF_DOCS -->

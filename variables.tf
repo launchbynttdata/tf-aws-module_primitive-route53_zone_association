@@ -13,11 +13,21 @@
 variable "zone_id" {
   description = "The private hosted zone ID to associate."
   type        = string
+
+  validation {
+    condition     = can(regex("^Z[A-Z0-9]+$", var.zone_id))
+    error_message = "zone_id must be a valid Route53 hosted zone ID (for example: Z123456ABCDEF)."
+  }
 }
 
 variable "vpc_id" {
   description = "The VPC ID to associate with the private hosted zone."
   type        = string
+
+  validation {
+    condition     = can(regex("^vpc-[0-9a-f]+$", var.vpc_id))
+    error_message = "vpc_id must be a valid VPC ID (for example: vpc-0123456789abcdef0)."
+  }
 }
 
 variable "vpc_region" {

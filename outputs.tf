@@ -19,3 +19,18 @@ output "owning_account" {
   description = "The account ID of the account that created the hosted zone."
   value       = aws_route53_zone_association.zone_association.owning_account
 }
+
+output "zone_id" {
+  description = "The private hosted zone ID associated with the VPC."
+  value       = aws_route53_zone_association.zone_association.zone_id
+}
+
+output "vpc_id" {
+  description = "The VPC ID associated with the private hosted zone."
+  value       = aws_route53_zone_association.zone_association.vpc_id
+}
+
+output "vpc_region" {
+  description = "The region of the VPC associated with the private hosted zone."
+  value       = aws_route53_zone_association.zone_association.vpc_region
+}

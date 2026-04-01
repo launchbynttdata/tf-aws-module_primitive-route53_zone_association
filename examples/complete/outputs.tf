@@ -21,11 +21,31 @@ output "owning_account" {
 }
 
 output "zone_id" {
-  description = "The private hosted zone ID."
-  value       = aws_route53_zone.zone.zone_id
+  description = "The private hosted zone ID returned by the module."
+  value       = module.route53_zone_association.zone_id
 }
 
 output "vpc_id" {
-  description = "The VPC ID of the secondary VPC associated with the zone."
+  description = "The VPC ID returned by the module."
+  value       = module.route53_zone_association.vpc_id
+}
+
+output "vpc_region" {
+  description = "The VPC region returned by the module."
+  value       = module.route53_zone_association.vpc_region
+}
+
+output "expected_zone_id" {
+  description = "Expected zone ID from the test fixture."
+  value       = aws_route53_zone.zone.zone_id
+}
+
+output "expected_vpc_id" {
+  description = "Expected VPC ID from the test fixture."
   value       = aws_vpc.secondary.id
+}
+
+output "expected_vpc_region" {
+  description = "Expected VPC region from the provider/test fixture."
+  value       = data.aws_region.current.name
 }

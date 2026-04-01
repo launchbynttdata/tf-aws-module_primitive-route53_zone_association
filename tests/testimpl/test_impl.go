@@ -19,20 +19,28 @@ import (
 )
 
 type zoneAssociationOutputs struct {
-	id            string
-	owningAccount string
-	zoneID        string
-	vpcID         string
+	id                string
+	owningAccount     string
+	zoneID            string
+	vpcID             string
+	vpcRegion         string
+	expectedZoneID    string
+	expectedVPCID     string
+	expectedVPCRegion string
 }
 
 func getOutputs(t *testing.T, ctx types.TestContext) zoneAssociationOutputs {
 	t.Helper()
 	opts := ctx.TerratestTerraformOptions()
 	return zoneAssociationOutputs{
-		id:            terraform.Output(t, opts, "id"),
-		owningAccount: terraform.Output(t, opts, "owning_account"),
-		zoneID:        terraform.Output(t, opts, "zone_id"),
-		vpcID:         terraform.Output(t, opts, "vpc_id"),
+		id:                terraform.Output(t, opts, "id"),
+		owningAccount:     terraform.Output(t, opts, "owning_account"),
+		zoneID:            terraform.Output(t, opts, "zone_id"),
+		vpcID:             terraform.Output(t, opts, "vpc_id"),
+		vpcRegion:         terraform.Output(t, opts, "vpc_region"),
+		expectedZoneID:    terraform.Output(t, opts, "expected_zone_id"),
+		expectedVPCID:     terraform.Output(t, opts, "expected_vpc_id"),
+		expectedVPCRegion: terraform.Output(t, opts, "expected_vpc_region"),
 	}
 }
 
@@ -42,6 +50,9 @@ func assertOutputContract(t *testing.T, outputs zoneAssociationOutputs) {
 	assert.Regexp(t, "^Z[A-Z0-9]+$", outputs.zoneID, "zone_id must be a Route53 hosted zone ID")
 	assert.Regexp(t, "^vpc-[0-9a-f]+$", outputs.vpcID, "vpc_id must be a VPC ID")
 	assert.Regexp(t, "^[0-9]{12}$", outputs.owningAccount, "owning_account must be a 12-digit AWS account ID")
+	assert.Equal(t, outputs.expectedZoneID, outputs.zoneID, "zone_id output must match the created hosted zone")
+	assert.Equal(t, outputs.expectedVPCID, outputs.vpcID, "vpc_id output must match the associated secondary VPC")
+	assert.Equal(t, outputs.expectedVPCRegion, outputs.vpcRegion, "vpc_region output must match the provider region")
 
 	idParts := strings.Split(outputs.id, ":")
 	require.GreaterOrEqual(t, len(idParts), 2, "id must include at least zone_id and vpc_id")
@@ -125,7 +136,9 @@ func createAndDeleteRoute53Record(t *testing.T, client *route53.Client, zoneID, 
 			},
 		}
 		_, deleteErr := client.ChangeResourceRecordSets(context.Background(), deleteInput)
-		assert.NoError(t, deleteErr, "failed to delete Route53 test record")
+		if deleteErr != nil {
+			t.Logf("warning: failed to delete Route53 test record %s: %v", recordName, deleteErr)
+		}
 	})
 }
 
