@@ -47,7 +47,7 @@ output "expected_vpc_id" {
 
 output "expected_vpc_region" {
   description = "Expected VPC region from the provider/test fixture."
-  value       = data.aws_region.current.name
+  value       = data.aws_region.current.id
 }
 
 output "configured_timeout_create" {
