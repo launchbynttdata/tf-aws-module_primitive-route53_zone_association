@@ -21,8 +21,9 @@ import (
 )
 
 const (
-	testConfigsExamplesFolderDefault = "../../examples"
-	infraTFVarFileNameDefault        = "test.tfvars"
+	testConfigsExamplesFolderDefault     = "../../examples"
+	testConfigsExamplesFolderMinProvider = "../../examples/min_provider"
+	infraTFVarFileNameDefault            = "test.tfvars"
 )
 
 func TestRoute53ZoneAssociationCompleteReadonly(t *testing.T) {
@@ -30,6 +31,17 @@ func TestRoute53ZoneAssociationCompleteReadonly(t *testing.T) {
 	ctx := types.CreateTestContextBuilder().
 		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
 		SetTestConfigFolderName(testConfigsExamplesFolderDefault).
+		SetTestConfigFileName(infraTFVarFileNameDefault).
+		Build()
+
+	lib.RunNonDestructiveTest(t, *ctx, testimpl.TestComposableCompleteReadonly)
+}
+
+func TestRoute53ZoneAssociationCompleteReadonlyMinProvider(t *testing.T) {
+
+	ctx := types.CreateTestContextBuilder().
+		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
+		SetTestConfigFolderName(testConfigsExamplesFolderMinProvider).
 		SetTestConfigFileName(infraTFVarFileNameDefault).
 		Build()
 

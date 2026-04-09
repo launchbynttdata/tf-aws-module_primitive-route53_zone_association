@@ -21,9 +21,10 @@ import (
 )
 
 const (
-	testConfigsExamplesFolderDefault = "../../examples"
-	infraTFVarFileNameDefault        = "test.tfvars"
-	infraTFVarFileNameTimeouts       = "test-timeouts.tfvars"
+	testConfigsExamplesFolderDefault     = "../../examples"
+	testConfigsExamplesFolderMinProvider = "../../examples/min_provider"
+	infraTFVarFileNameDefault            = "test.tfvars"
+	infraTFVarFileNameTimeouts           = "test-timeouts.tfvars"
 )
 
 func TestRoute53ZoneAssociationComplete(t *testing.T) {
@@ -42,6 +43,28 @@ func TestRoute53ZoneAssociationCompleteWithTimeouts(t *testing.T) {
 	ctx := types.CreateTestContextBuilder().
 		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
 		SetTestConfigFolderName(testConfigsExamplesFolderDefault).
+		SetTestConfigFileName(infraTFVarFileNameTimeouts).
+		Build()
+
+	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestComposableCompleteWithTimeouts)
+}
+
+func TestRoute53ZoneAssociationCompleteMinProvider(t *testing.T) {
+
+	ctx := types.CreateTestContextBuilder().
+		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
+		SetTestConfigFolderName(testConfigsExamplesFolderMinProvider).
+		SetTestConfigFileName(infraTFVarFileNameDefault).
+		Build()
+
+	lib.RunSetupTestTeardown(t, *ctx, testimpl.TestComposableComplete)
+}
+
+func TestRoute53ZoneAssociationCompleteWithTimeoutsMinProvider(t *testing.T) {
+
+	ctx := types.CreateTestContextBuilder().
+		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
+		SetTestConfigFolderName(testConfigsExamplesFolderMinProvider).
 		SetTestConfigFileName(infraTFVarFileNameTimeouts).
 		Build()
 
