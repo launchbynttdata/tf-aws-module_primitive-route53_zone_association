@@ -33,14 +33,14 @@ func getOutputs(t *testing.T, ctx types.TestContext) zoneAssociationOutputs {
 	t.Helper()
 	opts := ctx.TerratestTerraformOptions()
 	return zoneAssociationOutputs{
-		id:                terraform.Output(t, opts, "id"),
-		owningAccount:     terraform.Output(t, opts, "owning_account"),
-		zoneID:            terraform.Output(t, opts, "zone_id"),
-		vpcID:             terraform.Output(t, opts, "vpc_id"),
-		vpcRegion:         terraform.Output(t, opts, "vpc_region"),
-		expectedZoneID:    terraform.Output(t, opts, "expected_zone_id"),
-		expectedVPCID:     terraform.Output(t, opts, "expected_vpc_id"),
-		expectedVPCRegion: terraform.Output(t, opts, "expected_vpc_region"),
+		id:                terraform.OutputContext(t, context.Background(), opts, "id"),
+		owningAccount:     terraform.OutputContext(t, context.Background(), opts, "owning_account"),
+		zoneID:            terraform.OutputContext(t, context.Background(), opts, "zone_id"),
+		vpcID:             terraform.OutputContext(t, context.Background(), opts, "vpc_id"),
+		vpcRegion:         terraform.OutputContext(t, context.Background(), opts, "vpc_region"),
+		expectedZoneID:    terraform.OutputContext(t, context.Background(), opts, "expected_zone_id"),
+		expectedVPCID:     terraform.OutputContext(t, context.Background(), opts, "expected_vpc_id"),
+		expectedVPCRegion: terraform.OutputContext(t, context.Background(), opts, "expected_vpc_region"),
 	}
 }
 
@@ -161,8 +161,8 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 func assertConfiguredTimeouts(t *testing.T, ctx types.TestContext, expectedCreate, expectedDelete string) {
 	t.Helper()
 	opts := ctx.TerratestTerraformOptions()
-	assert.Equal(t, expectedCreate, terraform.Output(t, opts, "configured_timeout_create"), "configured create timeout should match test input")
-	assert.Equal(t, expectedDelete, terraform.Output(t, opts, "configured_timeout_delete"), "configured delete timeout should match test input")
+	assert.Equal(t, expectedCreate, terraform.OutputContext(t, context.Background(), opts, "configured_timeout_create"), "configured create timeout should match test input")
+	assert.Equal(t, expectedDelete, terraform.OutputContext(t, context.Background(), opts, "configured_timeout_delete"), "configured delete timeout should match test input")
 }
 
 func TestComposableCompleteWithTimeouts(t *testing.T, ctx types.TestContext) {
